@@ -1,10 +1,10 @@
-== Fulcro Developer's Guide
+== Fulcro開発者ガイド
 
-This is the source for the Developer's Guide of Fulcro version 3.
+これは、Fulcro バージョン 3 の Developer's Guide のソースです。
 
-The source for v2 of the book is in the root of the Fulcro repository, at any 2.x tag.
+この本の v2 のソースは、Fulcro リポジトリのルート、任意の 2.x タグにあります。
 
-== Generating HTML
+== HTMLの生成
 
 ```bash
 make book
@@ -12,7 +12,7 @@ make book
 make docker-html
 ```
 
-== Generating a PDF
+== PDFの生成
 
 ```bash
 make pdf
@@ -20,29 +20,28 @@ make pdf
 make docker-pdf
 ```
 
-=== Prerequisites
+=== 前提条件
 
-asciidoctor-pdf is a ruby gem. It is recommended to manage userspace gems using
-rvm.
+asciidoctor-pdfはruby gemです。rvmを使ってユーザー空間のgemを管理することを推奨します。
 
-Please see the asciidoctor guide for more information
+詳細はasciidoctorガイドを参照してください。
 
 https://asciidoctor.org/docs/install-asciidoctor-macos/#rvm-procedure-recommended
 
-=== Developing
-* Generate html
+=== 開発
+* htmlの生成
 ```shell
 $ make docker-html
 or
 $ make book
 ```
-* Publish
+* 出版
 ```shell
 $ rm -rf docs/js/book docs/js/book.js
 $ npx yarn
 $ shadow-cljs release book
 ```
-* Run the server
+* サーバーの起動
 ```shell
 npx shadow-cljs server
 ```
