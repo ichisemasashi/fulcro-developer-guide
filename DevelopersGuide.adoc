@@ -1,4 +1,4 @@
-= Fulcro Developers Guide
+= Fulcro開発者ガイド
 :author: Tony Kay
 :lang: en
 :encoding: UTF-8
@@ -65,22 +65,21 @@ endif::[]
 <div id="server-controls"> </div>
 ++++
 
-= About This Book
+= 本書について
 
-This is a stand-alone developer's guide for version 3 of Fulcro.
-It is intended to be used by beginners and experienced developers and covers most of the library in detail.
-Fulcro has a pretty extensive set of resources on the web tailored to fit your learning style.
+本書は、Fulcroバージョン3のスタンドアローン開発者ガイドです。
+初心者の方から経験豊富な方まで幅広くお使いいただけるよう、ライブラリのほとんどを詳しく解説しています。
+Fulcroには、あなたの学習スタイルに合わせた、かなり広範なリソースがウェブ上にあります。
 
-There is this book, the https://cljdoc.org/d/com.fulcrologic/fulcro/3.0.0/doc/readme[docstrings/clojure docs], and even a series of https://www.youtube.com/playlist?list=PLVi9lDx-4C_T7jkihlQflyqGqU4xVtsfi[YouTube videos]. Even more resources can be reached via the https://fulcro-community.github.io/[Fulcro Community site].
+この本、https://cljdoc.org/d/com.fulcrologic/fulcro/3.0.0/doc/readme[docstrings/clojure docs]、そして一連のhttps://www.youtube.com/playlist?list=PLVi9lDx-4C_T7jkihlQflyqGqU4xVtsfi[YouTubeビデオ]もあります。https://fulcro-community.github.io/[Fulcro Community site]からは、さらに多くのリソースにアクセスできます。
 
-A lot of time and energy went into creating these libraries and materials and providing them free of charge.
-If you find them useful please consider
-http://patreon.com/fulcro[contributing to the project].
+これらのライブラリや資料を作成し、無償で提供するために、多くの時間とエネルギーが費やされました。
+もしこれらの資料が有用であるとお感じになりましたら、http://patreon.com/fulcro[プロジェクトへの貢献]をご検討ください。
 
-Of course fixes to this guide are also appreciated as pull requests against the https://github.com/fulcrologic/fulcro-developer-guide[github repository].
+もちろん、このガイドの修正は、https://github.com/fulcrologic/fulcro-developer-guide[githubリポジトリ]に対するプルリクエストとしても歓迎します。
 
-This book includes quite a bit of live code.
-Live code demos with their source look like this:
+本書にはかなりの量のライブコードが含まれています。
+ライブ・コードのデモとそのソースは次のようになります：
 
 .[[SampleExample]]<<SampleExample,Sample Example>>
 ====
@@ -96,21 +95,21 @@ include::src/book/book/example_1.cljs[]
 ----
 ====
 
-Each example includes a "Focus Inspector" button that will cause the Fulcro Inspect development tools to focus on that example.
-See <<Install Fulcro Inspect>> for details on how to set that up and use it.
+各サンプルには「Focus Inspector」ボタンがあり、Fulcro Inspectの開発ツールがそのサンプルにフォーカスします。
+その設定方法と使い方の詳細は <<Fulcro Inspect のインストール>> を参照してください。
 
-All of the full stack examples use a mock server embedded in the browser to simulate any network interaction, but the source that you'll read for the application is identical to what you'd write for a real server.
+すべてのフルスタックの例では、ブラウザに埋め込まれたモックサーバを使用して、あらゆるネットワークインタラクションをシミュレートしていますが、アプリケーションのために読むソースは、実際のサーバ用に書くものと同じです。
 
-WARNING: If you're viewing this directly from the GitHub repository then you won't see the live code!
-Use http://book.fulcrologic.com/fulcro3 instead.
+WARNING: GitHubのリポジトリから直接閲覧している場合は、実際のコードは表示されません！
+代わりに http://book.fulcrologic.com/fulcro3 を使ってください。
 
-The mock server has a built-in latency to simulate a moderately slow network so you can observe behaviors over time.
-You can control the length of this latency in milliseconds using the "Server Controls" in the upper-right corner of this document (if you're reading the HTML version with live examples).
+モック・サーバーには遅延が組み込まれており、適度に遅いネットワークをシミュレートします。
+このレイテンシの長さは、このドキュメントの右上隅にある「サーバー・コントロール」を使ってミリ秒単位でコントロールすることができます（ライブのサンプルがあるHTML版を読んでいる場合）。
 
-== Common Prefixes and Namespaces
+== 一般的な接頭辞と名前空間
 
-Many of the code examples assume you've required the proper namespaces in your code.
-This book adopts the following general set of requires and aliases:
+コード例の多くは、あなたのコードに適切な名前空間が必要であることを前提としています。
+本書では、以下の一般的なrequireとaliasesのセットを採用しています：
 
 [source,clojure]
 ----
@@ -137,42 +136,30 @@ This book adopts the following general set of requires and aliases:
             [edn-query-language.core :as eql]))
 ----
 
-others will be identified as they are used.
+その他は、使用されるたびに確認される。
 
-== Best Practices
+== ベストプラクティス
 
-Fulcro and our understanding of best practices with it have evolved over time. Unfortunately we don't have time to update
-this book every time a new insight or technique proves to be more useful that older ones. Everything in this book
-functions in the latest versions of Fulcro (to the best of our knowledge); however, this small section of the book
-is where we'll try to list notes about current evolutions of the library and which features might be best to focus on.
+我々のFulcroに対する理解やベストプラクティスは、時代とともに進化してきました。残念ながら、新しい洞察やテクニックが古いものよりも有用であることが判明するたびに、本書を更新する時間はありません。しかし、本書のこの小さなセクションでは、ライブラリの現在の進化や、どの機能に焦点を当てるのがベストなのかについてのメモを掲載しています。
 
-As of September 2020 you should concentrate your efforts on understanding:
+2020年9月現在、あなたは理解することに集中すべきです：
 
-* How Fulcro normalizes data. Pay particular attention to query, ident, and initial state. These are the core of
-Fulcro's operation.
-* The core internals of I/O operation are still mutations (which in turn are used to implement the internals of loads);
-however, application authors would do well to pay attention to UI State Machines, which are generally a better way
-to organize groups of operations around components in order to reason over them.
-* UI Routing takes on a different flavor in Fulcro, because both the UI and queries need to be managed.
-* You should consider Fulcro RAD early in your application development. The attribute-centric focus brings a lot of
-extensibility/flexibility to your application, and the overall design and internals might help you understand more advanced usage of
-Fulcro itself.
-* Keep your query light! You can do this by adopting either the legacy union router (fast, low-feature, bit harder to
-understand) or the dynamic router (preferred, composable, more moving internal parts). When used
-at the top level of your app these will lead to better performance by making sure only the data needed for the active view
-is pulled from the database.
+* Fulcroがどのようにデータを正規化するか。特にクエリー、ident、初期状態に注意してください。これらはFulcroの操作の核心である。
+* I/O操作の核となる内部は、まだミューテーション（これはロードの内部を実装するために使用される）である、
+ しかし、アプリケーションの作者は、UI State Machinesに注意を払うのがよいだろう。UI State Machinesは、一般的に、コンポーネントを推論するために、コンポーネントの周りに操作のグループを編成する、よりよい方法である。
+* UIとクエリの両方を管理する必要があるため、UIルーティングは、Fulcroでは異なる味付けになります。
+* アプリケーション開発の早い段階で、Fulcro RADを検討すべきです。属性中心のフォーカスは、アプリケーションに多くの拡張性と柔軟性をもたらし、全体的なデザインと内部は、Fulcro自体のより高度な使い方を理解するのに役立つかもしれません。
+* クエリーを軽くしましょう！レガシーなユニオン・ルーター（高速、低機能、少し理解しにくい）かダイナミック・ルーター（優先的、コンポーザブル、より動く内部部品）のどちらかを採用することで、これを行うことができます。これらをアプリのトップレベルで使用すると、アクティブなビューに必要なデータだけがデータベースから引き出されるようになり、パフォーマンスが向上します。
 
-= React Versions [[ReactCompatibility]]
+= Reactバージョン [[ReactCompatibility]]
 
-Fulcro works with React for browsers, embedded in Electron, and React Native. Version 15+ should work with Fulcro through
-version 3.5.x, though React 17 is recommended for versions of Fulcro through 3.5.x.
+Fulcroは、ブラウザ用のReact、Electronに埋め込まれたReact、およびReact Nativeで動作します。バージョン 15+ は、バージョン 3.5.x までの Fulcro で動作しますが、3.5.x までの Fulcro では React 17 を推奨します。
 
-Fulcro 3.6.0+ are compatible with React 17 and above (the final few versions of 16 that have Context should also work).
+Fulcro 3.6.0+は、React 17以上と互換性があります（Contextを持つ16の最後のいくつかのバージョンも動作するはずです）。
 
-If you want to use React 18 in non-legacy mode, then you need to enable it. This is a manual process because React
-changed the namespaces where the entry point code lives.
+React 18を非レガシーモードで使いたい場合は、有効にする必要がある。Reactはエントリーポイントのコードが存在する名前空間を変更したため、これは手作業になります。
 
-When creating your Fulcro app, do the following:
+Fulcroアプリを作成するときは、次のようにしてください：
 
 [source]
 -----
@@ -187,9 +174,9 @@ When creating your Fulcro app, do the following:
               (with-react18)))
 -----
 
-At the time of this writing Fulcro 3.6.0 is in progress, and is available as 3.6.0-SNAPSHOT.
+この記事を書いている時点では、Fulcro 3.6.0 は進行中で、3.6.0-SNAPSHOT として利用可能です。
 
-Report any issues to the #fulcro Clojurians Slack channel.
+問題があれば #fulcro Clojurians Slack チャンネルに報告してください。
 
 = Fulcro From 10,000 Feet
 
@@ -977,7 +964,7 @@ Once you've got the general idea you can use other materials to refine your unde
 IMPORTANT: This document assumes you're working with Fulcro 3.x and above.
 Please see http://book.fulcrologic.com[older version of the Developer's Guide] if you're working with an older version.
 
-== Install Fulcro Inspect
+== Fulcro Inspect のインストール
 
 You should use Chrome for development because we have a developer tool called Fulcro Inspect that is available from the Chrome store for free.
 There are also devtools that are installed via preloads which will autoformat EDN that is sent via `console.log`.
@@ -7754,7 +7741,7 @@ This database and small set of resolvers can resolve quite complex queries:
 
 === Playing with the Database
 
-If you're running the live book with <<Install Fulcro Inspect, Inspect installed>> you can leverage a really nice feature of that tool:
+If you're running the live book with <<Fulcro Inspect のインストール, Inspect installed>> you can leverage a really nice feature of that tool:
 When you use Pathom as your parser it is able to send an autocomplete index to your tools, which allows you play with the parser on your server to see what it can do!
 
 Try the following:
@@ -8147,7 +8134,7 @@ and now you can load (and normalize) the data that the server knows how to provi
 The example below simulates post mutations to show how a load of simple data could be morphed into something that the UI wants to display.
 In this case we're pretending that the load has brought in a number of items (as a collection) and normalized it, but we'd prefer to show the items organized by category.
 
-You should interact with it and <<Install Fulcro Inspect,view the database in Inspect>> to A/B compare the before/after state.
+You should interact with it and <<Fulcro Inspect のインストール,view the database in Inspect>> to A/B compare the before/after state.
 
 .[[MorphingExample]]<<MorphingExample,Morphing Example>>
 ====
