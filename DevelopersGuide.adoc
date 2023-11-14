@@ -178,27 +178,26 @@ Fulcroアプリを作成するときは、次のようにしてください：
 
 問題があれば #fulcro Clojurians Slack チャンネルに報告してください。
 
-= Fulcro From 10,000 Feet
+= 10,000フィートから見た Fulcro
 
-You may be reading this guide hoping for a "quick feel" for why Fulcro might be a good fit for a project.
-The
-<<Getting Started>> chapter walks you through the evolution of the model in a way that is intended to lead to the best understanding, but it is a lot of minutiae to absorb just to get the "big picture" and there is some chance you'll misunderstand where that is going and stop before you get to the good stuff.
-This book is also a rather large work intended to serve as a complete reference guide, so reading it cover to cover may not be all that desirable for your purposes.
+なぜFulcroがプロジェクトに適しているのか、その "手っ取り早い感触 "を期待してこのガイドを読んでいるかもしれない。
+<<Getting Started>>の章では、最良の理解へと導くことを意図して、モデルの進化を順を追って説明しているが、「全体像」を把握するためだけに吸収しなければならない瑣末なことが多く、それがどこに向かっているのかを誤解して、良いことにたどり着く前に立ち止まってしまう可能性もある。
+本書はまた、完全なリファレンスガイドとしての役割を果たすことを意図した、かなり大がかりな作品であるため、隅から隅まで読むことはあなたの目的にとってそれほど望ましいことではないかもしれない。
 
-If you really want to learn to *use* Fulcro, feel free to skip this chapter and read <<Core Concepts>>; however, if you'd rather learn the central ideas and approach of Fulcro this is a good place to start.
+もし本当にFulcroの使い方を学びたいのであれば、この章は飛ばして<<コア・コンセプト>>を読んでほしい。
 
-At its core Fulcro and its companion library https://wilkerlucio.github.io/pathom[`pathom`] are a full-stack application programming system centered around graph-based UI and data management.
+Fulcroとその付属ライブラリhttps://wilkerlucio.github.io/pathom[`pathom`]は、グラフベースのUIとデータ管理を中心としたフルスタックアプリケーションプログラミングシステムです。
 
-The core ideas are as follows:
+核となる考え方は以下の通りである：
 
-* Graphs and Graph Queries are a great way to generalize data models.
-* UI trees are directed graphs that can easily be "fed" from graph queries.
-* User-driven operations are modeled as transactions whose values are simply data (that look like calls).
-* Arbitrary graphs of data from the server need to be normalized (as in database normalization):
-** UI trees often repeat parts of the graph.
-** *Local Manipulation* of data obtained from a graph needs to be de-duped.
-* Composition is *King*.
-Seamless composition is a key component of software sustainability.
+* グラフとグラフクエリはデータモデルを一般化する素晴らしい方法である。
+* UIツリーは有向グラフであり、グラフクエリから簡単に " 与える " ことができる。
+* ユーザー主導の操作は、値が単なるデータ（呼び出しのように見える）であるトランザクションとしてモデル化される。
+* サーバーからのデータの任意のグラフは、（データベースの正規化のように）正規化される必要がある：
+** UIツリーはしばしばグラフの一部を繰り返す。
+** グラフから取得したデータの **ローカル操作** は、重複を除去する必要がある。
+* コンポジションは *王様* である。
+継ぎ目のない構成は、ソフトウェアの持続可能性の重要な要素である。
 
 == But Does it Have X?
 
@@ -565,7 +564,7 @@ We've known for years that state machines are a great way to manage this kind of
 Fulcro's central normalized database and mutation model made an internal version of state machines a very good match.
 Not only is it easy to define them, the model makes them reusable: that is to say you can indicate which UI components serve roles within the machine, leading to things like CRUD state machines can manage the interactions (edit, list, save, reset, cancel, etc.) for most of the entities in a form system.
 
-= Core Concepts
+= コア・コンセプト
 
 This chapter covers some detail about the core library features and theory that are important in the Fulcro ecosystem. You
 need not read this chapter to use Fulcro, but it will aid in your understanding of it quite a bit, especially if you're
