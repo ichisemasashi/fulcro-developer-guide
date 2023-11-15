@@ -199,44 +199,44 @@ Fulcroとその付属ライブラリhttps://wilkerlucio.github.io/pathom[`pathom
 * コンポジションは *王様* である。
 継ぎ目のない構成は、ソフトウェアの持続可能性の重要な要素である。
 
-== But Does it Have X?
+== しかし、それはXを持っていますか？
 
-People have a number of initial "comparative" questions when looking at Fulcro when they've used other libraries.
-If you are familiar with other CLJS or JS UI libraries then you may have one of these questions.
-The most common ones are:
+Fulcroを見るとき、他のライブラリを使ったことがある人は、最初にいくつかの「比較」の質問をします。
+もしあなたが他のCLJSやJSのUIライブラリに慣れているなら、このような疑問を持つかもしれません。
+最も一般的なものは
 
-Can I use "hiccup" notation for the DOM?::
-Yes, you can use https://github.com/r0man/sablono[Sablono].
-It should work fine, but it is cljs-only.
-If you want _support_, isomorphic server-side rendering of components, etc.: then use what Fulcro provides.
+DOMに "hiccup "記法は使えますか？::
+はい、https://github.com/r0man/sablono[Sablono]を使うことができます。
+問題なく動くはずですが、cljs専用です。
+もし、_support_や、コンポーネントの同型サーバサイドレンダリングなどが必要であれば、Fulcroが提供するものを使ってください。
 
-<<TheFreakingHiccupQuestionAgain, Why don't you use Hiccup by default?>>:: [[TheFreakingHiccupQuestionAgain]]
-The honest answer is "because".
-As in: because that's the way it was written in Om Next, the predecessor of Fulcro.
-I assume David Nolen had his reasons for preferring functions/macros over hiccup and I respected his choice (even though I did not personally know why it was).
-Why is Fulcro still using functions?
-Well, several reasons:
-Certainly the fact that I already have the code and there are apps based on it is sufficient, it is no more verbose (if you leverage `:refer` in `:require`), it tests to be as fast as raw React when used optimally, and works with the same API on the client and server for supporting isomorphic rendering (Hiccup is CLJ only, you have to use Sablono for cljs with React).
-Finally, I will note that this question ranks near the top of my list of "Questions that Don't Matter".
-If you came to Fulcro looking for DOM notation: move along.
+<<<TheFreakingHiccupQuestionAgain, なぜデフォルトでHiccupを使わないのですか>>:[[TheFreakingHiccupQuestionAgain]]。
+正直な答えは「なぜなら」です。
+Fullcro の前身であるOm Nextではそのように書かれていたからだ。
+デビッド・ノレンには、しゃっくりよりも関数やマクロを好む理由があったのだろうと思うし、私は彼の選択を尊重した（それがなぜなのかは個人的には知らなかったけれど）。
+なぜFulcroはまだ関数を使っているのか？
+いくつか理由がある：
+確かに、私がすでにコードを持っていて、それをベースにしたアプリがあるという事実だけで十分だし、（`:require`で`:refer`を活用すれば）冗長にならないし、最適に使えば生のReactと同じくらい速くなることがテストされているし、同型レンダリングをサポートするためにクライアントとサーバーで同じAPIで動作する（HiccupはCLJのみで、Reactでcljsを使うにはSablonoを使う必要がある）。
+最後に、この質問は私の「どうでもいい質問」リストのトップ近くにランクされていることに注意しておこう。
+もしDOM記法を求めてFulcroに来たのなら、先に進んでください。
 
-Where are the "reducers"?::
-Re-frame and Redux are very popular choices for front-end work, and for good reason.
-Fulcro is basically a graph-centric full-stack CQRS-style library.
-Mutations are the "commands" that are queued (like events in a reducer system), but Fulcro adds a some very important things:
-graph data support, auto-normalization of central database, and a centralized transaction processing system.
+「reducers」はどこにある？::
+Re-frameとReduxはフロントエンドの仕事では非常に人気のある選択肢だが、それには理由がある。
+Fulcroは基本的にグラフ中心のフルスタックCQRSスタイルのライブラリだ。
+変異はキューに入れられる「コマンド」（reducerシステムにおけるイベントのようなもの）だが、Fulcroは非常に重要なものをいくつか追加している：
+グラフデータのサポート、中央データベースの自動正規化、中央トランザクション処理システムなどだ。
 +
-Fulcro 3's <<UI State Machines>> are usable in exactly the same way as reducer/event systems, but have some distinct differences (dare I say improvements?):
-They support an actor model where instances of UI components are assigned at runtime to play "roles" in the logical flow; they are true state machines (not just switch/case statements); they make use of Fulcro's database auto-normalization, graph query abilities, and abstract mutation system; and their current "state" is stored and normalized into the same central application database where Fulcro's Chrome extension makes them easy to debug.
+Fulcro 3の<<UIステートマシン>>は、reducer/eventシステムとまったく同じように使えますが、いくつかの明確な違いがあります（あえて改善点と言いましょうか）：
+UIコンポーネントのインスタンスが実行時に割り当てられ、論理フローで「役割」を果たすアクターモデルをサポートしていること、真のステートマシンであること（単なるswitch/case文ではない）、Fulcroのデータベース自動正規化、グラフクエリ能力、抽象的な突然変異システムを利用していること、現在の「状態」が同じ中央アプリケーションデータベースに保存され正規化されていること、FulcroのChrome拡張機能によりデバッグが容易になっていることです。
 
-Can I Subscribe to XYZ?::
-Subscriptions are not a central concern of Fulcro itself, but Fulcro's architecture mixed with the websocket remote make building something that has a "Meteor JS" experience pretty easy to do.
-Almost all of the real difficulty in making a subscription system has to do with server-side management.
-You could use a "custom" websocket remote to adapt to any existing GraphQL infrastructure that supplies such automatic updates.
+XYZを購読できますか？::
+サブスクリプションはFulcro自体の中心的な関心事ではありませんが、Fulcroのアーキテクチャとウェブソケットリモートの組み合わせは、"Meteor JS "のようなエクスペリエンスを持つものをかなり簡単に作ることができます。
+サブスクリプションシステムを作る上での本当の難しさのほとんどは、サーバーサイドの管理に関係しています。
+カスタム "ウェブソケットリモートを使用して、そのような自動更新を提供する既存のGraphQLインフラに適応させることができます。
 
-What about Server-Side Rendering?::
-Fulcro is written in CLJC. The intention is to be able to set up and "run" an application in a headless JS OR Java VM environment and either actively control a DOM or just render "frames" as strings.
-The server-side implementation of the DOM methods let you render Fulcro UI in a Java VM without needing to resort to a JS engine at all.
+サーバーサイド・レンダリングについてはどうですか？::
+FulcroはCLJCで書かれています。その意図は、ヘッドレスJSまたはJava VM環境でアプリケーションをセットアップして「実行」し、DOMをアクティブに制御するか、文字列として「フレーム」をレンダリングすることです。
+DOMメソッドのサーバーサイド実装により、JSエンジンに頼ることなくJava VMでFulcro UIをレンダリングできる。
 
 == Server Schema vs. UI Graph
 
@@ -551,7 +551,7 @@ Saving snapshots over time is all it takes to be able to "view" the app as it ex
 Fulcro Inspect can take a picture of app state and save it in browser local storage for later restoration.
 This allows you to "jump to" some application state that you use a lot during development (e.g. jump to screen 2, with a partially filled form read for submit).
 
-Finally, a more recent addition to the library has proven to be extremely useful: <<UI State Machines>>.
+Finally, a more recent addition to the library has proven to be extremely useful: <<UIステートマシン>>.
 
 Most UIs end up with a mess of logic spread out in ways that are hard to reason about.
 Look no further than any "login" module of an application.
@@ -9444,7 +9444,7 @@ on initialization. For example, websockets support requires you install these be
 instance.
 
 
-= UI State Machines
+= UIステートマシン
 
 User interfaces are full of interactions that beg for the help of state machines.
 Just a simple login form is usually quite difficult to code (independent of tools) because its behavior depends on a number of factors...factors that are actually quite easy to represent with state machines, but get ugly quickly when spread out in various code artifacts.
